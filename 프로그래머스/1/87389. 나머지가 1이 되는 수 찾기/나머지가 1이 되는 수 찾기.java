@@ -1,11 +1,13 @@
+
 class Solution {
     public int solution(int n) {
-        int x = 0;
-            for(int i=2; i<n; i++){
-                if(n % i == 1){
-                    return i;
-                }
+        int answer = 0;
+        for (int i=2; i<n; i++) {
+            if (n % i == 1) {
+                answer = i;
+                break;
+            } 
         }
-        return -1;
+        return answer;
     }
 }
