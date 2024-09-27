@@ -21,8 +21,8 @@ public class Main {
 			arr[b-1] = tmp;
 		}
         
-		for(int i=0; i<N; i++) {
-			System.out.print(arr[i] + " ");
-		}		
+        for(int i : arr){
+            System.out.print(i + " ");
+        }
 	}
 }
