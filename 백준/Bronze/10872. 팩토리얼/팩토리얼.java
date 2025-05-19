@@ -2,14 +2,13 @@
 import java.util.Scanner;
 
 public class Main {
-	public static int solution(int N) {
-		int answer= 1;
-		
-		for(int i = N; i >= 1; i--) {
-			answer *= i;
+	
+	public static int DFS(int N) {
+		if(N == 0) {
+			return 1;
 		}
 		
-		return answer;
+		return N * DFS(N-1);
 	}
 
 	public static void main(String[] args) {
@@ -17,7 +16,7 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		int N = sc.nextInt();
 		
-		System.out.println(solution(N));
+		System.out.println(DFS(N));
 	}
 
 }
