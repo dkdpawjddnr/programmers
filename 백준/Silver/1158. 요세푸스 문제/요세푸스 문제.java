@@ -1,35 +1,34 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int N = scanner.nextInt();
-        int K = scanner.nextInt();
-        StringBuilder result = new StringBuilder();
-        Queue<Integer> queue = new LinkedList<>();
-        
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int N = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
+
+        List<Integer> list = new ArrayList<>();
         for (int i = 1; i <= N; i++) {
-            queue.add(i);
+            list.add(i);
         }
 
-        int count = 1;
-        result.append("<");
-        while (queue.size() != 0) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<");
 
-            if (count == K) {
-                result.append(queue.poll() + ", ");
-                count = 1;
-                continue;
-            }
-            ++count;
-            queue.add(queue.poll());
+        int index = 0;
+        while (!list.isEmpty()) {
+            index = (index + K - 1) % list.size();
+            sb.append(list.remove(index));
+            if (!list.isEmpty()) sb.append(", ");
         }
-        result.append(">");
-        result.deleteCharAt(result.length() - 3);
-        result.deleteCharAt(result.length() - 2);
-        System.out.println(result);
 
+        sb.append(">");
+        System.out.println(sb);
     }
 }
