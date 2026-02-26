@@ -1,44 +1,49 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Stack;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
 
-        Stack<Integer> stack = new Stack<>();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Stack<Integer> s = new Stack<>();
+        int n = Integer.parseInt(br.readLine());
 
         for (int i = 0; i < n; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-            int order = Integer.parseInt(st.nextToken());
-            if (order == 1) {
-                int num = Integer.parseInt(st.nextToken());
-                stack.push(num);
-            } else if (order == 2) {
-                int pop = -1;
-                if (!stack.isEmpty()) {
-                    pop = stack.pop();
-                }
-                System.out.println(pop);
-            } else if (order == 3) {
-                System.out.println(stack.size());
-            } else if (order == 4) {
-                if (stack.isEmpty()) {
-                    System.out.println(1);
-                } else {
-                    System.out.println(0);
-                }
-            } else if (order == 5) {
-                if (!stack.isEmpty()) {
-                    int pop = stack.pop();
-                    System.out.println(pop);
-                    stack.push(pop);
-                } else {
-                    System.out.println(-1);
-                }
+
+            switch(Integer.parseInt(st.nextToken())) {
+
+                case 1:
+                    s.push(Integer.parseInt(st.nextToken()));
+                    break;
+
+                case 2:
+                    if (!s.empty())
+                        System.out.println(s.pop());
+                    else
+                        System.out.println(-1);
+                    break;
+
+                case 3:
+                    System.out.println(s.size());
+                    break;
+
+                case 4:
+                    if (s.empty())
+                        System.out.println(1);
+                    else
+                        System.out.println(0);
+                    break;
+
+                case 5:
+                    if (!s.empty())
+                        System.out.println(s.peek());
+                    else
+                        System.out.println(-1);
+                    break;
+
+                default:
+                    break;
             }
         }
     }
