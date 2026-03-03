@@ -1,31 +1,26 @@
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-	public static void main(String[] args) {
-	
-		LinkedHashMap<String, String> hm = new LinkedHashMap<>();
-		hm.put("c=","č");
-		hm.put("c-","ć");
-		hm.put("dz=","dž");
-		hm.put("d-","đ");
-		hm.put("lj","lj");
-		hm.put("nj","nj");
-		hm.put("s=","š");
-		hm.put("z=","ž");
-		
-		String[] hmKeys = hm.keySet().toArray(new String[hm.size()]);
-		
-		Scanner kb = new Scanner(System.in);
-		String str = kb.next();
-		
-		for(int i=0; i<hmKeys.length; i++) {
-			if(str.contains(hmKeys[i])) {
-			
-				str = str.replace(hmKeys[i], "*");
-			}
-		}
-		System.out.println(str.length());
-	}
+        String word = br.readLine();
+        int count = 0;
 
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            if (c == '=' || c == '-') {
+                continue;
+            } else if (c == 'z' && i > 0 && word.charAt(i - 1) == 'd' && i + 1 < word.length() && word.charAt(i + 1) == '=') {
+                continue;
+            } else if ((c == 'j' && i > 0 && (word.charAt(i - 1) == 'l' || word.charAt(i - 1) == 'n'))) {
+                continue;
+            } else {
+                count++;
+            }
+        }
+        System.out.println(count);
+    }
 }
