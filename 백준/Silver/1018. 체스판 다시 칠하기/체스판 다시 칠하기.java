@@ -1,59 +1,53 @@
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        // n 입력받기
-        int n = sc.nextInt();
+    static int N, M = 0;
+    static char[][] arr;
+    static int min = Integer.MAX_VALUE;
 
-        // m 입력받기
-        int m = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        arr = new char[N][M];
 
-        // board 입력받기
-        char[][] board = new char[n][m];
-        for(int i=0; i<n; i++) {
-            String str = sc.next();
-            for(int j=0; j<m; j++) {
-                board[i][j] = str.charAt(j);
+        for (int i = 0; i < N; i++) {
+            String line = br.readLine();
+            for (int j = 0; j < M; j++) {
+                arr[i][j] = line.charAt(j);
             }
         }
 
-        System.out.println(solution(n, m, board));
-    }
-
-    private static int solution(int n, int m, char[][] board) {
-        int answer = Integer.MAX_VALUE;
-
-        for(int i=0; i<n-7; i++) {
-            for(int j=0; j<m-7; j++) {
-                answer = Math.min(answer, getCount(i, j, board));
+        for (int i = 0; i < N - 7; i++) {
+            for (int j = 0; j < M - 7; j++) {
+                min = Math.min(min, getCount(i, j));
             }
         }
-        return answer;
+        System.out.println(min);
     }
 
-    private static int getCount(int x, int y, char[][] board) {
-        int count = 0;
+    static int getCount(int x, int y) {
+        int countX = 0;
+        int countY = 0;
 
-        char currentColor = board[x][y];
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                char cur = arr[x + i][y + j];
 
-        for(int i=x; i<x+8; i++) {
-            for(int j=y; j<y+8; j++) {
-                if(board[i][j] != currentColor) {
-                    count++;
+                if ((i + j) % 2 == 0) {
+                    if (cur != 'W') countX++;
+                    if (cur != 'B') countY++;
+                } else {
+                    if (cur != 'B') countX++;
+                    if (cur != 'W') countY++;
                 }
-                currentColor = change(currentColor);
             }
-            currentColor = change(currentColor);
         }
-        return Math.min(count, 64 - count);
-    }
 
-    private static char change(char currentColor) {
-        if(currentColor == 'W') {
-            return 'B';
-        } else {
-            return 'W';
-        }
+        return Math.min(countX, countY);
     }
 }
