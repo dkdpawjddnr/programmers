@@ -1,32 +1,33 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
 
-public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+class Main {
+	public static void main (String[] args) throws java.lang.Exception {
+	    Scanner in = new Scanner(System.in);
+        
         while(true){
             StringBuilder sb = new StringBuilder();
-            int n = Integer.parseInt(br.readLine());
-            if(n == -1) break;
-
-            sb.append(n + " = 1");
-            int sum = 1;
-            for(int i = 2; i < n; i++){
-                if(n%i == 0){
-                    sb.append(" + " + i);
+            int N = in.nextInt();
+            
+            if(N==-1) break;
+            
+            int sum = 0;
+            sb.append(N + " = ");
+           
+            for(int i=1; i<N; i++){
+                if(N%i==0){
+                    sb.append(i + " + ");
                     sum+=i;
                 }
             }
-
-            if(n == sum){
+            
+            if(N==sum){
+                sb.setLength(sb.length() - 3);
                 System.out.println(sb);
-            }
-            else{
-                System.out.println(n + " is NOT perfect.");
+            }else{
+                System.out.println(N + " is NOT perfect.");
             }
         }
-        br.close();
-    }
+	}
 }
